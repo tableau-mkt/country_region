@@ -4,7 +4,7 @@ Country to Region mapping
 This is a JSON configuration which allows mapping country codes to regions. It contains two files: a full list of countries to region codes, and a generalized region config that rolls-up standardized regions into more recognisable general world regions. This second config may-or-may-not match your business's rules.
 
 ###Country to Region
-Example entried from within country_region.json
+Example entries from within `country_region.json`
 ```json
 {
   "countries" : {
@@ -22,7 +22,7 @@ Example entried from within country_region.json
 ```
 
 ###Country to Region
-Entire contents of regions_generalized.json
+Entire contents of `regions_generalized.json`
 ```json
 {
   "regions_generalized" : {
