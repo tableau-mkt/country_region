@@ -51,7 +51,10 @@ Entire contents of `regions_generalized.json`
 ```
 
 ## Usage Example
-This example uses a deferred jQuery object in the global scope to keep track of whether the mapping object has been built out. It then uses the mapping to apply raw country user data against some DOM objects. This use-case was modified from an example of setting a client-side filter. _NOTE: dependecy on jQuery and Underscore.js_
+This example uses a deferred jQuery object in the global scope to keep track of whether the mapping object has been built out.
+It then uses the mapping to apply raw country user data against some DOM objects. Mapping loads as needed.
+This use-case was modified from an example of setting a client-side filter.
+_NOTE: dependecy on jQuery and Underscore.js_
 
 ```javascript
 (function($) {
