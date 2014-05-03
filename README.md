@@ -59,7 +59,7 @@ This example uses a deferred jQuery object in the global scope to keep track of 
 
     if ($('form').hasClass('my-reaction-class')) {
       // Build mappers for later use.
-      SomeGlobalScopeObject.buildDBmapping();
+      SomeGlobalScopeObject.buildMapping();
       if (typeof(UserDataObject) === 'undefined') {
         UserDataObject = collectUserDataSomehow().done(function() {
           if (typeof(UserDataObject) !== 'undefined') {
@@ -80,7 +80,7 @@ This example uses a deferred jQuery object in the global scope to keep track of 
 
   });
 
-  SomeGlobalScopeObject.buildDBmapping = function() {
+  SomeGlobalScopeObject.buildMapping = function() {
     SomeGlobalScopeObject["mapping_deferred"] = $.Deferred();
     // Build mappings if not already built.
     if (!_.has(SomeGlobalScopeObject, 'data_mapping')) {
@@ -108,7 +108,7 @@ This example uses a deferred jQuery object in the global scope to keep track of 
 UseMappingSomehow = function($whereToUseItSelector) {
   // Ensure the mapping was built.
   if (!_.has(SomeGlobalScopeObject, "mapping_deferred")) {
-    SomeGlobalScopeObject.buildDBmapping();
+    SomeGlobalScopeObject.buildMapping();
   }
   SomeGlobalScopeObject.mapping_deferred.done(function() {
     var data = false;
