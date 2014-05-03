@@ -108,7 +108,7 @@ _NOTE: dependecy on jQuery and Underscore.js_
 
 })(jQuery);
 
-UseMappingSomehow = function($whereToUseItSelector) {
+SomeGlobalScopeObject.UseMappingSomehow = function($whereToUseItSelector) {
   // Ensure the mapping was built.
   if (!_.has(SomeGlobalScopeObject, "mapping_deferred")) {
     SomeGlobalScopeObject.buildMapping();
