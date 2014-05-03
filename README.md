@@ -1,4 +1,4 @@
-Country to Region mapping
+Country to region mapping
 ==============
 
 This is a JSON configuration which allows mapping country codes to regions. It contains two files: a full list of countries to region codes, and a generalized region config that rolls-up standardized regions into more recognisable general world regions. This second config may-or-may-not match your business's rules.
