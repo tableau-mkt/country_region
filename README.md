@@ -115,17 +115,9 @@ UseMappingSomehow = function($whereToUseItSelector) {
 
     // Get the mapper for region to country.
     if (typeof UserDataObject.country !== 'undefined') {
-      var country_code = UserDataObject.country;
-    }
-    else if (typeof UserDataObject.registry_country_code !== 'undefined') {
-      var country_code = UserDataObject.registry_country_code;
-    }
-    else {
-      var country_code = false;
-    }
-    if (country_code) {
-      if (_.has(SomeGlobalScopeObject.data_mapping.countries, country_code)) {
+      if (_.has(SomeGlobalScopeObject.data_mapping.countries, UserDataObject.country)) {
         var country_data = SomeGlobalScopeObject.data_mapping.countries[country_code];
+
         _.each(SomeGlobalScopeObject.data_mapping.regions_generalized, function(e, i) {
           if (_.indexOf(e.sub_regions.split(','), country_data.region) !== -1) {
             data = i;
