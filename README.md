@@ -60,9 +60,9 @@ This example uses a deferred jQuery object in the global scope to keep track of 
     if ($('form').hasClass('my-reaction-class')) {
       // Build mappers for later use.
       SomeGlobalScopeObject.buildMapping();
-      if (typeof(UserDataObject) === 'undefined') {
+      if (typeof UserDataObject === 'undefined') {
         UserDataObject = collectUserDataSomehow().done(function() {
-          if (typeof(UserDataObject) !== 'undefined') {
+          if (typeof UserDataObject !== 'undefined') {
             trigger_thing();
           }
         });
@@ -113,17 +113,14 @@ UseMappingSomehow = function($whereToUseItSelector) {
   SomeGlobalScopeObject.mapping_deferred.done(function() {
     var data = false;
 
-    // Get the mapper for region to country.
-    if (typeof UserDataObject.country !== 'undefined') {
-      if (_.has(SomeGlobalScopeObject.data_mapping.countries, UserDataObject.country)) {
-        var country_data = SomeGlobalScopeObject.data_mapping.countries[country_code];
+    if (typeof UserDataObject.country !== 'undefined' && _.has(SomeGlobalScopeObject.data_mapping.countries, UserDataObject.country)) {
+      var country_data = SomeGlobalScopeObject.data_mapping.countries[UserDataObject.country];
 
-        _.each(SomeGlobalScopeObject.data_mapping.regions_generalized, function(e, i) {
-          if (_.indexOf(e.sub_regions.split(','), country_data.region) !== -1) {
-            data = i;
-          }
-        });
-      }
+      _.each(SomeGlobalScopeObject.data_mapping.regions_generalized, function(e, i) {
+        if (_.indexOf(e.sub_regions.split(','), country_data.region) !== -1) {
+          data = i;
+        }
+      });
     }
 
     if (data && typeof data !== "undefined") {
