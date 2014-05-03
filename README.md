@@ -122,8 +122,7 @@ UseMappingSomehow = function($whereToUseItSelector) {
         }
       });
     }
-
-    if (data && typeof data !== "undefined") {
+    if (data) {
       DoSomethingToSomething($whereToUseItSelector, data);
     }
   });
