@@ -21,7 +21,7 @@ Example entries from within `country_region.json`
 }
 ```
 
-###Country to Region
+###Generalized Regions
 Entire contents of `regions_generalized.json`
 ```json
 {
