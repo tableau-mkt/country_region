@@ -1,22 +1,22 @@
 {
   "regions_generalized" : {
-    "1730" : {
+    "0" : {
       "name" : "North America",
       "sub_regions" : "21"
     },
-    "1733" : {
+    "1" : {
       "name" : "Europe",
       "sub_regions" : "150,39,151,154,155"
     },
-    "1732" : {
+    "2" : {
       "name" : "Asia Pacific",
       "sub_regions" : "142,30,34,35,53,54,57,61,143,145"
     },
-    "1731" : {
+    "3" : {
       "name" : "Latin America",
       "sub_regions" : "419,5,13,29"
     },
-    "1734" : {
+    "4" : {
       "name" : "Middle East & Africa",
       "sub_regions" : "2,9,11,14,15,17,18"
     }
