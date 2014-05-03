@@ -49,3 +49,94 @@ Entire contents of `regions_generalized.json`
   }
 }
 ```
+
+## Usage Example
+This example uses a deferred jQuery object in the global scope to keep track of whether the mapping object has been built out. It then uses the mapping to apply raw country user data against some DOM objects. This use-case was modified from an example of setting a client-side filter.
+
+```javascript
+(function($) {
+  $(document).ready(function() {
+
+    if ($('form').hasClass('my-reaction-class')) {
+      // Build mappers for later use.
+      SomeGlobalScopeObject.buildDBmapping();
+      if (typeof(UserDataObject) === 'undefined') {
+        UserDataObject = collectUserDataSomehow().done(function() {
+          if (typeof(UserDataObject) !== 'undefined') {
+            trigger_thing();
+          }
+        });
+      }
+      else {
+        trigger_thing();
+      }
+    }
+
+    function trigger_thing() {
+      $.each($('.things-to-act-on'), function(index, $val) {
+        UseMappingSomehow($val, index);
+      });
+    }
+
+  });
+
+  SomeGlobalScopeObject.buildDBmapping = function() {
+    SomeGlobalScopeObject["mapping_deferred"] = $.Deferred();
+    // Build mappings if not already built.
+    if (!_.has(SomeGlobalScopeObject, 'data_mapping')) {
+      var json_location = '/your/library/path/';
+      var mapping_holder = {};
+
+      var result_regions = $.getJSON(json_location + 'country_region.json').done(function(data) {
+        mapping_holder["countries"] = data.countries;
+      });
+      var result_general = $.getJSON(json_location + 'regions_generalized.json').done(function(data) {
+        mapping_holder["regions_generalized"] = data.regions_generalized;
+      });
+      $.when(result_regions, result_general).done(function() {
+        SomeGlobalScopeObject.data_mapping = mapping_holder;
+        SomeGlobalScopeObject.mapping_deferred.resolve();
+      });
+    }
+    else {
+      SomeGlobalScopeObject.mapping_deferred.resolve();
+    }
+  };
+
+})(jQuery);
+
+UseMappingSomehow = function($whereToUseItSelector) {
+  // Ensure the mapping was built.
+  if (!_.has(SomeGlobalScopeObject, "mapping_deferred")) {
+    SomeGlobalScopeObject.buildDBmapping();
+  }
+  SomeGlobalScopeObject.mapping_deferred.done(function() {
+    var data = false;
+
+    // Get the mapper for region to country.
+    if (typeof UserDataObject.country !== 'undefined') {
+      var country_code = UserDataObject.country;
+    }
+    else if (typeof UserDataObject.registry_country_code !== 'undefined') {
+      var country_code = UserDataObject.registry_country_code;
+    }
+    else {
+      var country_code = false;
+    }
+    if (country_code) {
+      if (_.has(SomeGlobalScopeObject.data_mapping.countries, country_code)) {
+        var country_data = SomeGlobalScopeObject.data_mapping.countries[country_code];
+        _.each(SomeGlobalScopeObject.data_mapping.regions_generalized, function(e, i) {
+          if (_.indexOf(e.sub_regions.split(','), country_data.region) !== -1) {
+            data = i;
+          }
+        });
+      }
+    }
+
+    if (data && typeof data !== "undefined") {
+      DoSomethingToSomething($whereToUseItSelector, data);
+    }
+  });
+};
+```
